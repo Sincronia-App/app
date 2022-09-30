@@ -5,6 +5,7 @@ const Logo = () => {
 }
 
 const Container = styled.h1`
+    margin-top: 0;
     font-size: 50px;
     text-transform: uppercase;
     letter-spacing: -3px;

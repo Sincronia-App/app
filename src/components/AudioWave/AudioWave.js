@@ -6,7 +6,7 @@ const AudioWave = () => {
     <Container>
       <OuterCircle className="circle">
         <InnerCircle className="circle">
-          <Loader class="loader">
+          <Loader className="loader">
             <span className="stroke"></span>
             <span className="stroke"></span>
             <span className="stroke"></span>

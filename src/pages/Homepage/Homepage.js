@@ -1,20 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AudioWave from "../../components/AudioWave/AudioWave";
 import { FiMusic } from "react-icons/fi";
+import Modal from "../../components/Modal";
 
 const Homepage = () => {
+  const [isPlay, setIsPlay] = useState(false);
+
+  useEffect(() => {
+    const play = document.getElementById("play");
+    const modal = document.querySelector(".modal");
+    play.onclick = () => {
+      modal.style.display = "none";
+      setTimeout(() => {
+        handlePlay();
+        setIsPlay(true);
+      }, 3000);
+    };
+  });
+
+  const handlePlay = () => {
+    const audio = new Audio(
+      "https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3"
+    );
+    audio.play();
+    audio.volume = 0.6;
+  };
+
   return (
     <Background>
       <StatusBanner>
         <p>
           <FiMusic />
           Título:
-          <AudioName>Prueba asíncrona</AudioName>
+          {isPlay ? <AudioName>Prueba asíncrona</AudioName> : ''}
         </p>
       </StatusBanner>
-      <h3>Se está reproduciendo</h3>
-      <AudioWave />
+      {isPlay ? (
+        <>
+          <h3>Se está reproduciendo</h3>
+          <AudioWave />
+        </>
+      ) : (
+        <>
+          <h3>Cargando...</h3>
+        </>
+      )}
+      <Modal>
+        <div>
+          <h3>Bienvenid/a a sincronia!</h3>
+          <p>Actualmente está xen fase beta la aplicación, por lo que cualquier comportamiento no esperado por favor ponte en contacto con: </p>
+          <button id="play">Aceptar</button>
+        </div>
+      </Modal>
     </Background>
   );
 };

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Logo from "../../components/General/Logo";
 import LoginBackground from "../../assets/homepage.jpg";
 import Loading from "../../components/Loading/Loading";
+import GlobalContext from "../../context/GlobalContex";
+
 
 const Login = () => {
   const [isLoadding, setIsLoading] = useState(true);
+  const { roomId } = useContext(GlobalContext);
+
 
   useEffect(() => {
     setTimeout(() => {

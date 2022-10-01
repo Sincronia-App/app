@@ -3,10 +3,12 @@ import "./App.css";
 import Login from "./pages/Login/Login";
 import Homepage from "./pages/Homepage/Homepage";
 
+
+
 function App() {
   return (
     <div className="App">
-       <Login/>
+       <Homepage/>
     </div>
   );
   // <Homepage />

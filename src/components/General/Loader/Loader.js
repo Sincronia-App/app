@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Loader = () => {
   return <Container>
-    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
   </Container>;
 };
 

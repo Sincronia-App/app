@@ -27,6 +27,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    animation: show 2s ease-out;
     @keyframes blink {
         0% {
             border: 10px solid #fff9;
@@ -37,7 +38,6 @@ const Container = styled.div`
         100% {
             border: 10px solid #fff9;
         }
-        
     }
     .circle {
         &:nth-child(1) {

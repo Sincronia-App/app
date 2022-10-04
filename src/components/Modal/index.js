@@ -3,12 +3,17 @@ import styled from "styled-components";
 
 const Modal = (props) => {
   return (
-    <div className="modal">
+    <ModalContainer className="modal">
       <ModalWrapper />
       <Content>{props.children}</Content>
-    </div>
+    </ModalContainer>
   );
 };
+
+
+const ModalContainer = styled.div`
+  background: #fff;
+`
 
 const ModalWrapper = styled.div`
     position: absolute;
@@ -17,8 +22,8 @@ const ModalWrapper = styled.div`
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: #94b4ff73;
-    backdrop-filter: blur(8px);
+    background-color: #fff;
+    background: url(https://xhibiter-nextjs.vercel.app/_next/image?url=%2Fimages%2Fgradient.jpg&w=3840&q=75);
 `;
 
 const Content = styled.div`

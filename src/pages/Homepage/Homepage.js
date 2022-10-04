@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AudioWave from "../../components/AudioWave/AudioWave";
 import { FiMusic } from "react-icons/fi";
 import Modal from "../../components/Modal";
+import Loader from "../../components/General/Loader/Loader";
 
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
@@ -28,32 +29,42 @@ const Homepage = () => {
   };
 
   return (
-    <Background>
-      <StatusBanner>
-        <p>
-          <FiMusic />
-          Título:
-          {isPlay ? <AudioName>Prueba asíncrona</AudioName> : ''}
-        </p>
-      </StatusBanner>
-      {isPlay ? (
-        <>
-          <h3>Se está reproduciendo</h3>
-          <AudioWave />
-        </>
-      ) : (
-        <>
-          <h3>Cargando...</h3>
-        </>
-      )}
+    <>
       <Modal>
         <div>
           <h3>Bienvenid/a a sincronia!</h3>
-          <p>Actualmente está xen fase beta la aplicación, por lo que cualquier comportamiento no esperado por favor ponte en contacto con: </p>
+          <p>
+            Actualmente está xen fase beta la aplicación, por lo que cualquier
+            comportamiento no esperado por favor ponte en contacto con:{" "}
+          </p>
           <button id="play">Aceptar</button>
         </div>
       </Modal>
-    </Background>
+      <Background>
+        <StatusBanner>
+          <p>
+            <FiMusic />
+            Título:
+            {isPlay ? (
+              <AudioName>Prueba async - Radio ChillHop 27/7</AudioName>
+            ) : (
+              ""
+            )}
+          </p>
+        </StatusBanner>
+        {isPlay ? (
+          <>
+            <h3>Se está reproduciendo</h3>
+            <AudioWave />
+          </>
+        ) : (
+          <>
+            <h3>Esperando respuesta...</h3>
+            <Loader />
+          </>
+        )}
+      </Background>
+    </>
   );
 };
 
@@ -76,6 +87,7 @@ const Background = styled.div`
     margin-top: calc(32vh - 50px);
     letter-spacing: -2px;
     padding: 0 4rem;
+    animation: show 0.5s ease-in-out;
     @media (min-width: 500px) {
       font-size: 33px;
     }
@@ -85,6 +97,7 @@ const Background = styled.div`
 const AudioName = styled.span`
   font-weight: 400;
   margin: 0 4px;
+  animation: show 0.5s ease-in-out;
 `;
 
 const StatusBanner = styled.div`

@@ -4,7 +4,7 @@ import Logo from "../../components/General/Logo";
 import LoginBackground from "../../assets/homepage.jpg";
 import Loading from "../../components/Loading/Loading";
 import GlobalContext from "../../context/GlobalContex";
-
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [isLoadding, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ const Login = () => {
               </RoomInput>
             </div>
             <SubmitButton>
-              <input type="submit" value="Entrar" />
+              <Link to="/room">Entar</Link>
             </SubmitButton>
           </Container>
         </LoaderBackground>
@@ -92,7 +92,10 @@ const RoomInput = styled.div`
 
 const SubmitButton = styled.div`
   padding: 1rem;
-  input {
+  a {
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
     padding: 14px;
     border: none;
     background-color: #3f51b5;

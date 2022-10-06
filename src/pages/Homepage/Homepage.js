@@ -34,7 +34,7 @@ const Homepage = () => {
         <div>
           <h3>Bienvenid/a a sincronia!</h3>
           <p>
-            Actualmente está xen fase beta la aplicación, por lo que cualquier
+            Actualmente está en fase beta la aplicación, por lo que cualquier
             comportamiento no esperado por favor ponte en contacto con:{" "}
           </p>
           <button id="play">Aceptar</button>

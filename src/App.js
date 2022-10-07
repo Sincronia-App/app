@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />}></Route>
-          <Route path="room" element={<Homepage />} />
+          <Route path="room" element={<Homepage key={new Date().getTime()}/>} />
           <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>

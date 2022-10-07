@@ -33,7 +33,7 @@ const Login = () => {
               </RoomInput>
             </div>
             <SubmitButton>
-              <Link to="/room">Entar</Link>
+              <a href="/room">Entar</a>
             </SubmitButton>
           </Container>
         </LoaderBackground>
@@ -93,6 +93,7 @@ const RoomInput = styled.div`
 const SubmitButton = styled.div`
   padding: 1rem;
   a {
+    text-decoration: none;
     margin: 0 auto;
     display: block;
     box-sizing: border-box;

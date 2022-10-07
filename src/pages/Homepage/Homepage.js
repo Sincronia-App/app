@@ -7,12 +7,18 @@ import Loader from "../../components/General/Loader/Loader";
 
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
+  const audio = new Audio(
+    "https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3"
+  );
 
   useEffect(() => {
     const play = document.getElementById("play");
     const modal = document.querySelector(".modal");
+    const background = document.querySelector(".background");
+    stopAudio();
     play.onclick = () => {
       modal.style.display = "none";
+      background.style.opacity = 1;
       setTimeout(() => {
         handlePlay();
         setIsPlay(true);
@@ -20,12 +26,17 @@ const Homepage = () => {
     };
   });
 
+  useEffect(() => {
+    audio.pause();
+  }, [window.location.pathname]);
+
   const handlePlay = () => {
-    const audio = new Audio(
-      "https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3"
-    );
     audio.play();
     audio.volume = 0.6;
+  };
+
+  const stopAudio = () => {
+    audio.pause();
   };
 
   return (
@@ -40,7 +51,7 @@ const Homepage = () => {
           <button id="play">Aceptar</button>
         </div>
       </Modal>
-      <Background>
+      <Background className="background">
         <StatusBanner>
           <p>
             <FiMusic />
@@ -69,6 +80,7 @@ const Homepage = () => {
 };
 
 const Background = styled.div`
+  opacity: 0;
   background: rgb(255, 234, 180);
   background: linear-gradient(
     180deg,

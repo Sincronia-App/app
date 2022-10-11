@@ -121,7 +121,10 @@ const Container = styled.div`
 const Background = styled.div`
   &.loading{
     background: linear-gradient( 180deg, rgb(211 233 255) 0%, rgb(255 255 255 / 60%) 100% );
-    height: 100vh;
+    min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
     transition: all 0.5s ease-out;
   }
   opacity: 0;
@@ -131,7 +134,10 @@ const Background = styled.div`
     rgba(255, 234, 180, 1) 0%,
     rgba(198, 119, 0, 0.6) 100%
   );
-  height: 100vh;
+  min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
   svg {
     margin-right: 10px;
   }

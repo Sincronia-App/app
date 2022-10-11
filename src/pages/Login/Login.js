@@ -4,7 +4,6 @@ import Logo from "../../components/General/Logo";
 import LoginBackground from "../../assets/homepage.jpg";
 import Loading from "../../components/Loading/Loading";
 import GlobalContext from "../../context/GlobalContex";
-import { Link } from "react-router-dom";
 
 const Login = () => {
   const [isLoadding, setIsLoading] = useState(true);
@@ -45,15 +44,20 @@ const Login = () => {
 const Wrapper = styled.div`
   background-color: #11a782;
   width: 100vw;
-  height: 100vh;
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
 `;
 
 const Container = styled.div`
   position: absolute;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
   display: flex;
   flex-direction: column;
   justify-content: ${(props) => props.justifyContent};
@@ -68,11 +72,14 @@ const Container = styled.div`
 const LoaderBackground = styled.div`
   position: absolute;
   width: 100%;
-  height: 100vh;
   background-image: url(${(props) => props.background});
   background-size: cover;
   background-position: left;
   background-repeat: no-repeat;
+  min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
   top: 0;
   left: 0;
 `;

@@ -22,16 +22,21 @@ const Loading = () => {
 const Wrapper = styled.div`
   background-color: #11a782;
   width: 100vw;
-  height: 100vh;
   overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
   animation: fadeInFromNone 0.5s ease-out;
 `;
 
 const Container = styled.div`
   position: absolute;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
   display: flex;
   flex-direction: column;
   justify-content: ${(props) => props.justifyContent};
@@ -42,7 +47,10 @@ const Container = styled.div`
 const LoaderBackground = styled.div`
   position: absolute;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;            /* fall-back */
+  min-height: -moz-available;
+  min-height: -webkit-fill-available;
+  min-height: fill-available;
   background-image: url(${(props) => props.background});
   background-size: cover;
   background-position: center;

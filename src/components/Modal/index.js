@@ -30,8 +30,9 @@ const Content = styled.div`
   width: 100%;
 
   h3 {
-    margin-top: calc(32vh - 115px)!important;
+    //margin-top: calc(32vh - 115px)!important;
     font-size: 38px!important;
+    margin: 0;
     padding: 10px;
     margin-bottom: 7px;
   }
@@ -42,27 +43,11 @@ const Content = styled.div`
     margin: 0 auto;
   }
 
+  height: 100%;
+  margin-top: 0;
   position: absolute;
   z-index: 101;
-  top: 10%;
 
-  button {
-    background-color: #11a782;
-    color: #fff;
-    border: none;
-    padding: 10px 25px;
-    width: 100%;
-    max-width: 250px;
-    border-radius: 15px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-top: 14rem;
-    text-transform: uppercase;
-    font-weight: 600;
-    &:hover {
-      background-color: #0f8a6b;
-    }
-  }
 `;
 
 export default Modal;

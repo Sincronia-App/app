@@ -20,8 +20,9 @@ const Homepage = () => {
       modal.style.display = "none";
       background.style.opacity = 1;
       setTimeout(() => {
-        handlePlay();
-        setIsPlay(true);
+        background.classList.remove("loading")
+        handlePlay()
+        setIsPlay(true)
       }, 3000);
     };
   });
@@ -42,16 +43,18 @@ const Homepage = () => {
   return (
     <>
       <Modal>
-        <div>
-          <h3>Bienvenid/a a sincronia!</h3>
-          <p>
-            Actualmente está en fase beta la aplicación, por lo que cualquier
-            comportamiento no esperado por favor ponte en contacto con:{" "}
-          </p>
+        <Container>
+          <div class="center">
+            <h3>Bienvenid/a a sincronia!</h3>
+            <p>
+              Actualmente está en fase beta la aplicación, por lo que cualquier
+              comportamiento no esperado por favor ponte en contacto con:{" "}
+            </p>
+          </div>
           <button id="play">Aceptar</button>
-        </div>
+        </Container>
       </Modal>
-      <Background className="background">
+      <Background className="background loading">
         <StatusBanner>
           <p>
             <FiMusic />
@@ -79,7 +82,48 @@ const Homepage = () => {
   );
 };
 
+const Container = styled.div`
+  button {
+    background-color: #11a782;
+    color: #fff;
+    border: none;
+    width: 92%;
+    padding: 14px;
+    max-width: 420px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    &:hover {
+      background-color: #0f8a6b;
+    }
+  }
+  .center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 30vh;
+  }
+  @media (min-width: 768px) {
+    button {
+      bottom: 35vh;
+    }
+  }
+`;
+
 const Background = styled.div`
+  &.loading{
+    background: linear-gradient( 180deg, rgb(211 233 255) 0%, rgb(255 255 255 / 60%) 100% );
+    height: 100vh;
+    transition: all 0.5s ease-out;
+  }
   opacity: 0;
   background: rgb(255, 234, 180);
   background: linear-gradient(

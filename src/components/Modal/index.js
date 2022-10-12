@@ -26,6 +26,9 @@ const ModalWrapper = styled.div`
   left: 0;
   background-color: #fff;
   background: url(https://xhibiter-nextjs.vercel.app/_next/image?url=%2Fimages%2Fgradient.jpg&w=3840&q=75);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Content = styled.div`

@@ -20,9 +20,9 @@ const Homepage = () => {
       modal.style.display = "none";
       background.style.opacity = 1;
       setTimeout(() => {
-        background.classList.remove("loading")
-        handlePlay()
-        setIsPlay(true)
+        background.classList.remove("loading");
+        handlePlay();
+        setIsPlay(true);
       }, 3000);
     };
   });
@@ -33,11 +33,16 @@ const Homepage = () => {
 
   const handlePlay = () => {
     audio.play();
-    audio.volume = 0.6;
+    audio.volume = 0.5;
   };
 
   const stopAudio = () => {
     audio.pause();
+  };
+
+  const unmuted = () => {
+    audio.volume = 0.5;
+    audio.play();
   };
 
   return (
@@ -54,30 +59,32 @@ const Homepage = () => {
           <button id="play">Aceptar</button>
         </Container>
       </Modal>
-      <Background className="background loading">
-        <StatusBanner>
-          <p>
-            <FiMusic />
-            Título:
-            {isPlay ? (
-              <AudioName>Prueba async - Radio ChillHop 27/7</AudioName>
-            ) : (
-              ""
-            )}
-          </p>
-        </StatusBanner>
-        {isPlay ? (
-          <>
-            <h3>Se está reproduciendo</h3>
-            <AudioWave />
-          </>
-        ) : (
-          <>
-            <h3>Esperando respuesta...</h3>
-            <Loader />
-          </>
-        )}
-      </Background>
+      <Wrapper>
+        <Background className="background loading">
+          <StatusBanner>
+            <p>
+              <FiMusic />
+              Título:
+              {isPlay ? (
+                <AudioName>Prueba async - Radio ChillHop 27/7</AudioName>
+              ) : (
+                ""
+              )}
+            </p>
+          </StatusBanner>
+          {isPlay ? (
+            <>
+              <h3 onClick={unmuted}>Se está reproduciendo</h3>
+              <AudioWave />
+            </>
+          ) : (
+            <>
+              <h3>Esperando respuesta...</h3>
+              <Loader />
+            </>
+          )}
+        </Background>
+      </Wrapper>
     </>
   );
 };
@@ -91,7 +98,7 @@ const Container = styled.div`
     padding: 14px;
     max-width: 420px;
     border-radius: 25px;
-    font-size: 14px;
+    font-size: 1rem;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 600;
@@ -118,15 +125,30 @@ const Container = styled.div`
   }
 `;
 
-const Background = styled.div`
-  &.loading{
-    background: linear-gradient( 180deg, rgb(211 233 255) 0%, rgb(255 255 255 / 60%) 100% );
-    min-height: 100vh;            /* fall-back */
+const Wrapper = styled.div`
+  min-height: 100vh; /* fall-back */
   min-height: -moz-available;
   min-height: -webkit-fill-available;
   min-height: fill-available;
+`;
+
+const Background = styled.div`
+  &.loading {
+    background: linear-gradient(
+      180deg,
+      rgb(211 233 255) 0%,
+      rgb(255 255 255 / 60%) 100%
+    );
     transition: all 0.5s ease-out;
   }
+  opacity: 1;
+  position: absolute;
+  left: 0;
+  min-height: 100vh;
+  width: 100%;
+  min-width: -webkit-fill-available;
+  min-height: fill-available;
+  //height: 100vh; /* fall-back */
   opacity: 0;
   background: rgb(255, 234, 180);
   background: linear-gradient(
@@ -134,10 +156,7 @@ const Background = styled.div`
     rgba(255, 234, 180, 1) 0%,
     rgba(198, 119, 0, 0.6) 100%
   );
-  min-height: 100vh;            /* fall-back */
-  min-height: -moz-available;
-  min-height: -webkit-fill-available;
-  min-height: fill-available;
+  //height: 100vh;
   svg {
     margin-right: 10px;
   }

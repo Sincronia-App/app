@@ -1,6 +1,6 @@
 # SINCRONIA APP
 
-Comming soon...
+Comming soon documentation...
 
 ## Getting Started with Create React App
 

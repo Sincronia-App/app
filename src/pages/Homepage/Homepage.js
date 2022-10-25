@@ -4,6 +4,10 @@ import AudioWave from "../../components/AudioWave/AudioWave";
 import { FiMusic } from "react-icons/fi";
 import Modal from "../../components/Modal";
 import Loader from "../../components/General/Loader/Loader";
+import socketio from "socket.io-client";
+
+const ENDPOINT = "http://127.0.0.1:3001/";
+
 
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
@@ -11,12 +15,16 @@ const Homepage = () => {
     "https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3"
   );
 
+  
+  
   useEffect(() => {
     const play = document.getElementById("play");
     const modal = document.querySelector(".modal");
     const background = document.querySelector(".background");
     stopAudio();
     play.onclick = () => {
+      const socket = socketio.connect(ENDPOINT);
+      socket.emit("message", "Hola!!"); 
       modal.style.display = "none";
       background.style.opacity = 1;
       setTimeout(() => {
@@ -26,10 +34,11 @@ const Homepage = () => {
       }, 3000);
     };
   });
-
+  
   useEffect(() => {
     audio.pause();
   }, [window.location.pathname]);
+  
 
   const handlePlay = () => {
     audio.play();

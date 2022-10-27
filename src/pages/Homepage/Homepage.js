@@ -25,13 +25,20 @@ const Homepage = () => {
     play.onclick = () => {
       const socket = socketio.connect(ENDPOINT);
       socket.emit("message", "Hola!!"); 
+      socket.on('connect', () => {
+        console.log("Is connecter");
+      });
+      socket.on('message', (msg) => {
+        if (msg === "active") {
+          console.log(msg);
+          background.classList.remove("loading");
+          handlePlay();
+          setIsPlay(true);
+        }
+      });
+
       modal.style.display = "none";
       background.style.opacity = 1;
-      setTimeout(() => {
-        background.classList.remove("loading");
-        handlePlay();
-        setIsPlay(true);
-      }, 3000);
     };
   });
   

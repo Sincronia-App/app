@@ -2,50 +2,73 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AudioWave from "../../components/AudioWave/AudioWave";
 import { FiMusic } from "react-icons/fi";
+import {BsFillVolumeUpFill} from 'react-icons/bs';
 import Modal from "../../components/Modal";
 import Loader from "../../components/General/Loader/Loader";
-import socketio from "socket.io-client";
-
-const ENDPOINT = "https://api-sincronia.codigohabil.com";
+import Pusher from 'pusher-js';
 
 
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
+  const [isiOS, setIsIOS] = useState(false);
+  const [isMutted, setIsMutted] = useState(true);
   const audio = new Audio(
     "https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3"
   );
 
-  
-  
   useEffect(() => {
     const play = document.getElementById("play");
     const modal = document.querySelector(".modal");
     const background = document.querySelector(".background");
     stopAudio();
     play.onclick = () => {
-      const socket = socketio.connect(ENDPOINT);
-      socket.emit("message", "Hola!!"); 
-      socket.on('connect', () => {
-        console.log("Is connecter");
-      });
-      socket.on('message', (msg) => {
-        if (msg === "active") {
-          console.log(msg);
-          background.classList.remove("loading");
-          handlePlay();
-          setIsPlay(true);
+      const pusher = new Pusher('7b2592ec3667310a5f51',{
+        cluster: 'us2',
+        encrypted: true
+      })
+      
+      checkIOS();
+
+      const channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
+        if(data.message === 'play'){
+          updateDisplay(background);
         }
       });
-
+      /*
+      setTimeout(() => {
+        background.classList.remove("loading");
+        handlePlay();
+        setIsPlay(true);
+      }, 5000);
+      */
       modal.style.display = "none";
       background.style.opacity = 1;
     };
   });
   
+
+  const checkIOS = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
+      audio.muted = true;
+      setIsIOS(true);
+    }
+  };
+
+
+  /*
   useEffect(() => {
     audio.pause();
   }, [window.location.pathname]);
+  */
   
+  const updateDisplay = (background) => {
+    background.classList.remove("loading");
+    handlePlay();
+    setIsPlay(true);
+  };
+
 
   const handlePlay = () => {
     audio.play();
@@ -57,6 +80,7 @@ const Homepage = () => {
   };
 
   const unmuted = () => {
+    setIsMutted(false);
     audio.volume = 0.5;
     audio.play();
   };
@@ -65,7 +89,7 @@ const Homepage = () => {
     <>
       <Modal>
         <Container>
-          <div class="center">
+          <div className="center">
             <h3>Bienvenid/a a sincronia!</h3>
             <p>
               Actualmente está en fase beta la aplicación, por lo que cualquier
@@ -90,7 +114,10 @@ const Homepage = () => {
           </StatusBanner>
           {isPlay ? (
             <>
-              <h3 onClick={unmuted}>Se está reproduciendo</h3>
+              <h3>Se está reproduciendo</h3>
+              {
+              (isiOS && isMutted) && <MuteButton  onClick={unmuted}> <BsFillVolumeUpFill/> Click para activar sonido</MuteButton>
+              }
               <AudioWave />
             </>
           ) : (
@@ -211,5 +238,28 @@ const StatusBanner = styled.div`
     }
   }
 `;
+
+const MuteButton = styled.div`
+    font-size: 16px;
+    border: 1px solid gray;
+    width: fit-content;
+    padding: 10px 21px;
+    border-radius: 25px;
+    margin: 0 auto;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    background-color: #e5e5e5ba;
+    z-index: 20;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #e5e5e5;
+    }
+`;
+
 
 export default Homepage;

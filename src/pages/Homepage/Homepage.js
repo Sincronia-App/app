@@ -6,7 +6,7 @@ import Modal from "../../components/Modal";
 import Loader from "../../components/General/Loader/Loader";
 import socketio from "socket.io-client";
 
-const ENDPOINT = "http://127.0.0.1:3001/";
+const ENDPOINT = "https://api-sincronia.codigohabil.com";
 
 
 const Homepage = () => {

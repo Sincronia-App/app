@@ -6,7 +6,7 @@ import {BsFillVolumeUpFill} from 'react-icons/bs';
 import Modal from "../../components/Modal";
 import Loader from "../../components/General/Loader/Loader";
 import Pusher from 'pusher-js';
-
+import { getRoomInfo } from "../../helper/getRoomInfo";
 
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
@@ -26,8 +26,9 @@ const Homepage = () => {
         cluster: 'us2',
         encrypted: true
       })
-      
-      checkIOS();
+
+      getRoomInfo()
+      checkIOS()
 
       const channel = pusher.subscribe('my-channel');
       channel.bind('my-event', function(data) {
@@ -35,13 +36,7 @@ const Homepage = () => {
           updateDisplay(background);
         }
       });
-      /*
-      setTimeout(() => {
-        background.classList.remove("loading");
-        handlePlay();
-        setIsPlay(true);
-      }, 5000);
-      */
+
       modal.style.display = "none";
       background.style.opacity = 1;
     };
@@ -53,15 +48,9 @@ const Homepage = () => {
     if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i)) {
       audio.muted = true;
       setIsIOS(true);
+      console.log("isIOS");
     }
   };
-
-
-  /*
-  useEffect(() => {
-    audio.pause();
-  }, [window.location.pathname]);
-  */
   
   const updateDisplay = (background) => {
     background.classList.remove("loading");

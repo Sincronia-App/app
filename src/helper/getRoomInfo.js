@@ -1,5 +1,5 @@
 export const getRoomInfo = async (roomName = '') => {
-    const response = await fetch(`http://localhost:3000/api/v1/room/${roomName}`);
+    const response = await fetch(`https://api-sincronia.codigohabil.com/api/v1/room`);
     const data = await response.json();
     return data;
 }

@@ -8,26 +8,34 @@ import Loader from "../../components/General/Loader/Loader";
 import Pusher from 'pusher-js';
 import { getRoomInfo } from "../../helper/getRoomInfo";
 
+import { getRoom } from "../../helper/getRoom";
+
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
   const [isiOS, setIsIOS] = useState(false);
   const [isMutted, setIsMutted] = useState(true);
-  const audio = new Audio(
-    "https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3"
-  );
+  const [urlAudio, setUrlAudio] = useState("");
+  const [audio, setAudio] = useState( 
+    //new Audio("https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3")
+    );
 
   useEffect(() => {
     const play = document.getElementById("play");
     const modal = document.querySelector(".modal");
     const background = document.querySelector(".background");
-    stopAudio();
+
+    getRoom().then((data) => {
+      setUrlAudio(data.data.url_audio)
+    })
+    //stopAudio();
     play.onclick = () => {
-      const pusher = new Pusher('7b2592ec3667310a5f51',{
+      const pusher = new Pusher(process.env.REACT_APP_KEY,{
         cluster: 'us2',
         encrypted: true
       })
 
       getRoomInfo()
+  
       checkIOS()
 
       const channel = pusher.subscribe('my-channel');
@@ -60,6 +68,9 @@ const Homepage = () => {
 
 
   const handlePlay = () => {
+    //setAudio(new Audio(urlAudio));
+    console.log(urlAudio)
+    const audio = new Audio(urlAudio);
     audio.play();
     audio.volume = 0.5;
   };

@@ -26,6 +26,7 @@ const Homepage = () => {
 
     getRoom().then((data) => {
       setUrlAudio(data.data.url_audio)
+      console.log(data.data.url_audio)
     })
     //stopAudio();
     play.onclick = () => {

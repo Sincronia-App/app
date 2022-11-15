@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import AudioWave from "../../components/AudioWave/AudioWave";
-import { FiMusic } from "react-icons/fi";
 import { BsFillVolumeUpFill } from "react-icons/bs";
 import Modal from "../../components/Modal";
 import Loader from "../../components/General/Loader/Loader";
 import Pusher from "pusher-js";
 import { getRoomInfo } from "../../helper/getRoomInfo";
 import { getRoom } from "../../helper/getRoom";
-import { Container, Wrapper, Background, StatusBanner, AudioName, MuteButton } from "../../components/Homepage";
+import { Container, Wrapper, Background, MuteButton, AudioName } from "../../components/Homepage";
+import { Channel, ChannelItem } from "../../components/Homepage/Channel";
+import StatusBanner from "../../components/Homepage/StatusBanner";
 
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
@@ -19,7 +19,6 @@ const Homepage = () => {
   const [channel, setChannel] = useState(null);
 
   //new Audio("https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3")
-
   useEffect(() => {
     const play = document.getElementById("play");
     const modal = document.querySelector(".modal");
@@ -91,6 +90,14 @@ const Homepage = () => {
     setChannel(10);
   };
 
+  // get current timestamp
+  const getCurrentTime = () => {
+    const date = new Date();
+    const time = date.getTime();
+
+    return time + Math.floor(Math.random() * 1000);
+  };
+
   return (
     <>
       <Modal>
@@ -109,16 +116,13 @@ const Homepage = () => {
       <Wrapper>
         <Background className="background loading">
           <StatusBanner>
-            <p>
-              <FiMusic />
-              Título:
               {isPlay ? (
                 <AudioName>Prueba async - Radio ChillHop 27/7</AudioName>
               ) : (
                 ""
               )}
-            </p>
           </StatusBanner>
+
           {isPlay ? (
             <>
               <h3>Se está reproduciendo</h3>
@@ -136,23 +140,8 @@ const Homepage = () => {
                 <>
                   <h3>Selecciona un canal</h3>
                   <Channel>
-                    <div className="item" onClick={() => handleChannel(0)}>
-                      <div className="icon">
-                        <FiMusic />
-                      </div>
-                      <div className="info">
-                        <h4>Canal 1</h4>
-                      </div>
-                    </div>
-
-                    <div className="item" onclick={() => handleChannel(1)}>
-                      <div className="icon">
-                        <FiMusic />
-                      </div>
-                      <div className="info">
-                        <h4>Canal 2</h4>
-                      </div>
-                    </div>
+                    <ChannelItem handleChannel={handleChannel} channelName="Canal 1" key={getCurrentTime()}/>
+                    <ChannelItem handleChannel={handleChannel} channelName="Canal 2" key={getCurrentTime()}/>
                   </Channel>
                 </>
               ) : (
@@ -170,29 +159,5 @@ const Homepage = () => {
 };
 
 
-
-const Channel = styled.div`
-  .item {
-    cursor: pointer;
-    max-width: 300px;
-    display: flex;
-    margin: 0 auto;
-    width: 100%;
-    align-items: center;
-    border-radius: 10rem;
-    border: 2px solid black;
-    margin-bottom: 12px;
-  }
-
-  h4 {
-    margin: 0;
-    padding: 10px;
-    font-weight: 500;
-  }
-
-  .icon {
-    padding-left: 1rem;
-  }
-`;
 
 export default Homepage;

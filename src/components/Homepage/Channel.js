@@ -2,10 +2,14 @@ import React from "react";
 import { FiMusic } from "react-icons/fi";
 import styled from "styled-components";
 
-
-export const ChannelItem = ({handleChannel, channelName, id = 0}) => {
+export const ChannelItem = ({
+  handleChannel,
+  channelName,
+  id = 0,
+  url = "",
+}) => {
   return (
-    <div className="item" onClick={() => handleChannel(id)}>
+    <div className="item" onClick={() => handleChannel(id, url)}>
       <div className="icon">
         <FiMusic />
       </div>
@@ -17,6 +21,10 @@ export const ChannelItem = ({handleChannel, channelName, id = 0}) => {
 };
 
 export const Channel = styled.div`
+  overflow: scroll;
+  height: fit-content;
+  max-height: 40vh;
+
   .item {
     cursor: pointer;
     max-width: 300px;
@@ -28,7 +36,7 @@ export const Channel = styled.div`
     border: 2px solid black;
     margin-bottom: 12px;
     &:hover {
-        background-color: #f7fffe;
+      background-color: #f7fffe;
     }
   }
 

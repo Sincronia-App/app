@@ -6,7 +6,13 @@ import Loader from "../../components/General/Loader/Loader";
 import Pusher from "pusher-js";
 import { getRoomInfo } from "../../helper/getRoomInfo";
 import { getRoom } from "../../helper/getRoom";
-import { Container, Wrapper, Background, MuteButton, AudioName } from "../../components/Homepage";
+import {
+  Container,
+  Wrapper,
+  Background,
+  MuteButton,
+  AudioName,
+} from "../../components/Homepage";
 import { Channel, ChannelItem } from "../../components/Homepage/Channel";
 import StatusBanner from "../../components/Homepage/StatusBanner";
 
@@ -16,20 +22,27 @@ const Homepage = () => {
   const [isMutted, setIsMutted] = useState(true);
   const [urlAudio, setUrlAudio] = useState("");
   const [audio, setAudio] = useState();
-  const [channel, setChannel] = useState(null);
+  const [channelId, setChannelId] = useState(null);
+  const [channels, setChannels] = useState([]);
+  const [error, setError] = useState('');
 
   //new Audio("https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3")
   useEffect(() => {
     const play = document.getElementById("play");
     const modal = document.querySelector(".modal");
     const background = document.querySelector(".background");
+    console.log("Component did mount");
 
-    getRoom().then((data) => {
-      setUrlAudio(data.data.url_audio);
-      console.log(data.data.url_audio);
-    });
     //stopAudio();
     play.onclick = () => {
+      getRoom().then((data) => {
+        setUrlAudio(data.data.url_audio);
+        setChannels(data.data.audios);
+        console.log("Channel selection", data.data.audios);
+      }).catch((error) => {
+        setError(error.message);
+      });
+
       const pusher = new Pusher(process.env.REACT_APP_KEY, {
         cluster: "us2",
         encrypted: true,
@@ -68,11 +81,11 @@ const Homepage = () => {
   };
 
   const handlePlay = () => {
-    //setAudio(new Audio(urlAudio));
-    console.log(urlAudio);
-    const audio = new Audio(urlAudio);
-    audio.play();
-    audio.volume = 0.5;
+    setAudio(new Audio(urlAudio));
+    console.log("Audio getway", urlAudio);
+    const audioAux = new Audio('https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3');
+    audioAux.play();
+    audioAux.volume = 0.5;
   };
 
   const stopAudio = () => {
@@ -85,9 +98,10 @@ const Homepage = () => {
     audio.play();
   };
 
-  const handleChannel = (id = 0) => {
+  const handleChannel = (id = 0, url) => {
     console.log("channel", id);
-    setChannel(10);
+    console.log("url", url);
+    setChannelId(10);
   };
 
   // get current timestamp
@@ -116,11 +130,11 @@ const Homepage = () => {
       <Wrapper>
         <Background className="background loading">
           <StatusBanner>
-              {isPlay ? (
-                <AudioName>Prueba async - Radio ChillHop 27/7</AudioName>
-              ) : (
-                ""
-              )}
+            {isPlay ? (
+              <AudioName>Prueba async - Radio ChillHop 27/7</AudioName>
+            ) : (
+              ""
+            )}
           </StatusBanner>
 
           {isPlay ? (
@@ -136,12 +150,20 @@ const Homepage = () => {
             </>
           ) : (
             <>
-              {channel == null ? (
+              {channelId == null ? (
                 <>
                   <h3>Selecciona un canal</h3>
                   <Channel>
-                    <ChannelItem handleChannel={handleChannel} channelName="Canal 1" key={getCurrentTime()}/>
-                    <ChannelItem handleChannel={handleChannel} channelName="Canal 2" key={getCurrentTime()}/>
+                    {channels.map((channel) => {
+                      return (
+                        <ChannelItem
+                          handleChannel={handleChannel}
+                          channelName={channel.label}
+                          url={channel.url}
+                          key={getCurrentTime()}
+                        />
+                      );
+                    })}
                   </Channel>
                 </>
               ) : (
@@ -157,7 +179,5 @@ const Homepage = () => {
     </>
   );
 };
-
-
 
 export default Homepage;

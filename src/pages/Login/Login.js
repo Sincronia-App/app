@@ -28,7 +28,7 @@ const Login = () => {
             <div>
               <Logo />
               <RoomInput>
-                <input type="text" placeholder="Ingresa el número de sala" />
+                <input type="text" placeholder="Ingresa el número de sala" value="12367"/>
               </RoomInput>
             </div>
             <SubmitButton>

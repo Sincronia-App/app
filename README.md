@@ -12,9 +12,30 @@ Para instalar la aplicación, primero tienes que descargar el proyecto y luego e
 
 Después de instlar todas las dependencias con el comando anteiror, ya puedes ejecutar y comprobar el correcto funcionamiento de la app a través del [localhost:30000](http://localhost:3000).
 
+## Configuración 
+
+Dentro del archivo `.env` en el directorio raiz, agrega las licencias y las configuraciones para que funcione la aplicación:
+
+Ejemplo:
+
+Credenciales para que funcione Pusher
+
+```javascript
+    REACT_APP_ID = "1234"
+    REACT_APP_KEY="123456789"
+    SECRET = "987654321"
+    CLUSTER = "us2"
+```
+
+Agregar url del endpoint del servidor:
+
+```javascript 
+    REACT_APP_ENDPOINT=https://api-sincronia.codigohabil.com/
+```
+
 ## Construir y desplegar
 
-Para instalar la aplicación, lo primero que se tiene que hacer es escribir la siguiente depdendencia dentro del `pachage.json`:
+Para llevar la aplicación, lo primero que se tiene que hacer es escribir la siguiente depdendencia dentro del `pachage.json`:
 
 ### `homepage": URL_DE_LA_PÁGINA,`
 

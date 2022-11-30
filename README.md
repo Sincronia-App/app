@@ -1,4 +1,4 @@
-# SINCRONIA APP 📢
+# 📢 SINCRONIA APP - V0.2
 
 (ES) Sincronía es una aplicación que te permite reproducir audios de manera asíncrona, todo a través de salas.
 
@@ -77,3 +77,6 @@ En el caos de usar servidores Apache, para que funcione correctamente se debe co
    RewriteRule . /index.html [L]
 ```
 
+## Versiones
+
+***v0.2***: La app ya cuenta con validaciones de error y elección de canales.

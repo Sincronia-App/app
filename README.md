@@ -1,4 +1,4 @@
-# SINCRONIA APP
+# SINCRONIA APP 📢
 
 (ES) Sincronía es una aplicación que te permite reproducir audios de manera asíncrona, todo a través de salas.
 

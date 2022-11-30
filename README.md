@@ -10,11 +10,11 @@ Para instalar la aplicación, primero tienes que descargar el proyecto y luego e
 
 ### `npm start`
 
-Después de instlar todas las dependencias con el comando anteiror, ya puedes ejecutar y comprobar el correcto funcionamiento de la app a través del [localhost:30000](http://localhost:3000).
+Después de instalar todas las dependencias con el comando anterior, ya puedes ejecutar y comprobar el correcto funcionamiento de la app a través del [localhost:30000](http://localhost:3000).
 
 ## Configuración 
 
-Dentro del archivo `.env` en el directorio raiz, agrega las licencias y las configuraciones para que funcione la aplicación:
+Dentro del archivo `.env` en el directorio raiz del proyecto, agrega las licencias y las configuraciones necesarias para que funcione la aplicación:
 
 Ejemplo:
 
@@ -23,19 +23,21 @@ Credenciales para que funcione Pusher
 ```javascript
     REACT_APP_ID = "1234"
     REACT_APP_KEY="123456789"
-    SECRET = "987654321"
-    CLUSTER = "us2"
+    REACT_APP_SECRET = "987654321"
+    CREACT_APP_LUSTER = "us2"
 ```
 
-Agregar url del endpoint del servidor:
+Agregar la url del endpoint del servidor:
 
 ```javascript 
     REACT_APP_ENDPOINT=https://api-sincronia.codigohabil.com/
 ```
 
+Recuerda que es importante agregar las credenciales, ya que sin estas no funcionará el proyecto.
+
 ## Construir y desplegar
 
-Para llevar la aplicación, lo primero que se tiene que hacer es escribir la siguiente depdendencia dentro del `pachage.json`:
+Para llevar la aplicación a un entorno de producción, lo primero que se tiene que hacer es escribir la siguiente depdendencia dentro del `pachage.json`:
 
 ### `homepage": URL_DE_LA_PÁGINA,`
 
@@ -49,21 +51,21 @@ Por ejemplo:
 }
 ```
 
-Lo siguiente es ejecutar el comando:
+Lo siguiente es ejecutar el siquiente comando para preparar los archivos del proyecto:
 
 ### `npm build`
 
-Que al terminar de ejecutarse creará los archivos de instalación dentro del directorio `/build`, en la raiz del proyecto:.
+Al terminar de ejecutarse la instrucción anterior se creará los archivos de instalación dentro del directorio `/build`, en la raiz del proyecto:.
 
 ## Subir al servidor
 
-Lo único que se tiene que hacer es subir los archivos dentro de la carperta `/build`, dentro del directorio de tu sitio web.
+Lo único que se tiene que hacer es subir los archivos que se encuentran en la carperta `/build`, dentro del directorio de tu sitio web.
 
-Y listo, está completamente desplegado.
+Y listo, está completamente desplegada la app.
 
 ### Servidores Apache
 
-En el caos de usar servidores Apache, se debe configurar dentro del archivo `.htaccess` lo siguiente:
+En el caos de usar servidores Apache, para que funcione correctamente se debe configurar dentro del archivo `.htaccess` lo siguiente:
 
 ```html
    RewriteEngine On 

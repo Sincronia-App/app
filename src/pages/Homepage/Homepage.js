@@ -15,6 +15,7 @@ import {
 } from "../../components/Homepage";
 import { Channel, ChannelItem } from "../../components/Homepage/Channel";
 import StatusBanner from "../../components/Homepage/StatusBanner";
+import { ToastContainer, toast } from "react-toastify";
 
 const Homepage = () => {
   const [isPlay, setIsPlay] = useState(false);
@@ -24,7 +25,7 @@ const Homepage = () => {
   const [audio, setAudio] = useState();
   const [channelId, setChannelId] = useState(null);
   const [channels, setChannels] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   //new Audio("https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3")
   useEffect(() => {
@@ -35,20 +36,42 @@ const Homepage = () => {
 
     //stopAudio();
     play.onclick = () => {
-      getRoom().then((data) => {
-        setUrlAudio(data.data.url_audio);
-        setChannels(data.data.audios);
-        console.log("Channel selection", data.data.audios);
-      }).catch((error) => {
-        setError(error.message);
-      });
+      getRoom()
+        .then((data) => {
+          setUrlAudio(data.data.url_audio);
+          setChannels(data.data.audios);
+          console.log("Channel selection", data.data.audios);
+        })
+        .catch((error) => {
+          setError(error.message);
+          toast.error("Error al cargar la sala", {
+            position: "top-center",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+            toast.warn('No se ha podido conectar correctamente al servidor. Error 500', {
+              position: "top-center",
+              autoClose: false,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+              theme: "light",
+              });
+        });
 
       const pusher = new Pusher(process.env.REACT_APP_KEY, {
         cluster: "us2",
         encrypted: true,
       });
 
-      getRoomInfo();
+      //getRoomInfo();
       checkIOS();
 
       const channel = pusher.subscribe("my-channel");
@@ -83,7 +106,9 @@ const Homepage = () => {
   const handlePlay = () => {
     setAudio(new Audio(urlAudio));
     console.log("Audio getway", urlAudio);
-    const audioAux = new Audio('https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3');
+    const audioAux = new Audio(
+      "https://coderadio-relay-nyc.freecodecamp.org/radio/8010/radio.mp3"
+    );
     audioAux.play();
     audioAux.volume = 0.5;
   };
@@ -128,6 +153,17 @@ const Homepage = () => {
       </Modal>
 
       <Wrapper>
+        <ToastContainer
+          position="top-center"
+          autoClose={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          theme="light"
+        />
+
         <Background className="background loading">
           <StatusBanner>
             {isPlay ? (
@@ -152,7 +188,7 @@ const Homepage = () => {
             <>
               {channelId == null ? (
                 <>
-                  <h3>Selecciona un canal</h3>
+                  {error === '' ?<h3>Selecciona un canal</h3> : <h3>No se ha podido cargar la sala 😔... <br/> Vuélvelo a intentar</h3>}
                   <Channel>
                     {channels.map((channel) => {
                       return (

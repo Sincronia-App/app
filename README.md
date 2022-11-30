@@ -4,6 +4,8 @@
 
 En cuanto a su funcionamiento, está desarrollada con tecnologías web y móviles como React y React Native.
 
+[Aplicación de ejemplo](https://sincronia.carlosaraiza.me/)
+
 ## Instalación
 
 Para instalar la aplicación, primero tienes que descargar el proyecto y luego ejecutar el comando:
